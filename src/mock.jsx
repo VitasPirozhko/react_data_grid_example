@@ -1,9 +1,31 @@
-export const mockHeadData = [
+const ColourCellRenderer = (props) => (
+    <span
+      style={{
+        borderLeft: '10px solid ' + props.value,
+        paddingLeft: '5px',
+      }}
+    >
+      {props.value}
+    </span>
+);
+
+export const columnDefs = [
     { field: '1', headerName: "TAX ID" },
     { field: '2', headerName: "" },
     { field: '3', headerName: "Internal sub#" },
     { field: '4', headerName: "Status" },
-    { field: '5', headerName: "Finance status for paying bulk" },
+    { 
+        field: '5',
+        headerName: "Finance status for paying bulk",
+        cellRenderer: ColourCellRenderer,
+        cellEditor: 'agRichSelectCellEditor',
+        cellEditorPopup: true,
+        cellEditorParams: {
+          values: ['To pay', 'DO NOT PAY'],
+          cellRenderer: ColourCellRenderer,
+          cellHeight: 20,
+        },
+    },
     { field: '6', headerName: "NAME" },
     { field: '7', headerName: "ALL NAMEs" },
     { field: '8', headerName: "Comment" },
@@ -47,7 +69,7 @@ export const mockHeadData = [
     { field: '46', headerName: "Дата останнього гарантійного листа" },
 ]
 
-export const mockData = [
+export const rowData = [
     {
         1: 3319819095,
         2: 10364,

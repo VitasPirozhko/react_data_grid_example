@@ -1,17 +1,28 @@
 import { AgGridReact } from 'ag-grid-react';
+import { useMemo } from 'react';
 
+import 'ag-grid-enterprise';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { mockData, mockHeadData } from './mock';
+import { rowData, columnDefs } from './mock';
 
 function App() {
 
+  const defaultColDef = useMemo(() => {
+    return {
+      resizable: true,
+      editable: true,
+    };
+  }, []);
+
   return (
     <>
-      <div className="ag-theme-alpine" style={{height: 400, width: '100%'}}>
+      <div className="ag-theme-alpine" style={{height: 700, width: '100%'}}>
         <AgGridReact
-            rowData={mockData}
-            columnDefs={mockHeadData}>
+            rowData={rowData}
+            columnDefs={columnDefs}
+            defaultColDef={defaultColDef}
+          >
         </AgGridReact>
       </div>
     </>
