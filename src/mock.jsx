@@ -19,7 +19,6 @@ export const columnDefs = [
             if (!value.href) return value;
             return <a href={value.href} target="_blank" rel="noreferrer">{value.title}</a>;
         },
-        // cellRenderer: props => {return <span>asda</span>}
     },
     { field: '2', headerName: "" },
     { field: '3', headerName: "Internal sub#" },
