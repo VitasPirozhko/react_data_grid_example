@@ -10,7 +10,17 @@ const ColourCellRenderer = (props) => (
 );
 
 export const columnDefs = [
-    { field: '1', headerName: "TAX ID" },
+    {
+        field: '1',
+        headerName: "TAX ID",
+        cellRenderer: (props) => {
+            const { value } = props;
+
+            if (!value.href) return value;
+            return <a href={value.href} target="_blank" rel="noreferrer">{value.title}</a>;
+        },
+        // cellRenderer: props => {return <span>asda</span>}
+    },
     { field: '2', headerName: "" },
     { field: '3', headerName: "Internal sub#" },
     { field: '4', headerName: "Status" },
@@ -71,7 +81,7 @@ export const columnDefs = [
 
 export const rowData = [
     {
-        1: 3319819095,
+        1: {title: 3319819095, href: 'testHref'},
         2: 10364,
         3: "10364-01",
         4: "ok",
