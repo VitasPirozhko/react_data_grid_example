@@ -38,7 +38,15 @@ const SelectEditInputCell = (props: GridRenderCellParams) => {
 }
 
 const columnDefs: GridColDef[] = [
-  { field: 'field_1', headerName: 'TAX ID'},
+  {
+    field: 'field_1',
+    headerName: 'TAX ID',
+    renderCell: (params) => {
+      const { value } = params;
+      if (!value.href) return value;
+      return <a href={value.href} target="_blank" rel="noreferrer" >{value.value}</a>
+    }
+  },
   { field: 'field_2', headerName: "" },
   { field: 'field_3', headerName: "Internal sub#", type: 'date', editable: true, width: 130},
   { field: 'field_4', headerName: "Status" },
@@ -89,7 +97,7 @@ const columnDefs: GridColDef[] = [
 export const rowData: GridRowsProp = [
   {
       id: 1,
-      field_1: 3319819095,
+      field_1: {value: 3319819095, href: '#testLink'},
       field_2: 10364,
       field_3: new Date(),
       field_4: "ok",
