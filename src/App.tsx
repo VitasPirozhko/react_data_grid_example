@@ -1,5 +1,5 @@
 import { Select, SelectChangeEvent } from '@mui/material';
-import { DataGrid, GridCellParams, GridColDef, GridRenderCellParams, GridRowsProp, useGridApiContext } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, useGridApiContext } from '@mui/x-data-grid';
 import 'App.css'
 
 function App() {
@@ -8,13 +8,10 @@ function App() {
     <div style={{ height: 500, width: '100%' }}>
       <DataGrid
         rows={rowData}
-        columns={columnDefs}
+        columns={addGeneralProperties(columnDefs)}
         sx={{
           boxShadow: '-2px 2px 8px rgba(78,69,92,.08)',
           borderRadius: '20px',
-          // '& .MuiDataGrid-cell:hover': {
-          //   color: 'primary.main',
-          // },
         }}
       />
   </div>
@@ -47,65 +44,72 @@ const SelectEditInputCell = (props: GridRenderCellParams) => {
   );
 }
 
+const addGeneralProperties = (collumns: GridColDef[]) => collumns.map((coll) => {
+  return {
+    editable: true,
+    headerClassName: 'table_row_header',
+    cellClassName: () => 'table_cell',
+    ...coll,
+  }
+});
+
 const columnDefs: GridColDef[] = [
   {
     field: 'field_1',
     headerName: 'TAX ID',
     headerAlign: 'center',
-    headerClassName: 'table_row_header',
     editable: false,
     renderCell: (params) => {
       const { value } = params;
       if (!value.href) return value;
       return <a href={value.href} target="_blank" rel="noreferrer" >{value.value}</a>
     },
-    cellClassName: (params) => 'table_cell',
   },
-  { field: 'field_2', headerName: "", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_3', headerName: "Internal sub#", type: 'date', editable: true, width: 130, headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', },
-  { field: 'field_4', headerName: "Status", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_5', headerName: 'Finance status for paying bulk', renderEditCell: SelectEditInputCell, editable: true, width: 180, headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', },
-  { field: 'field_6', headerName: "NAME", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_7', headerName: "ALL NAMEs", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_8', headerName: "Comment", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_9', headerName: "Лінк на Екземпляр Глово/\nстатус", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_10', headerName: "Екземпляр Партнера\nстатус", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_11', headerName: "Літера в архіві", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_12', headerName: "Номер в архіві", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_13', headerName: "City", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_14', headerName: "Найменування", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_15', headerName: "TAX ID", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_16', headerName: "Active as of 15.01.2023", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_17', headerName: "IBAN/ Bank account", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_18', headerName: "IBAN check", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_19', headerName: "Yes Updated", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_20', headerName: "Comment on commission", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_21', headerName: "trial", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_22', headerName: "Platform\nfee\nплата за доступ до додатку\nСУМА", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_23', headerName: "Platform\nfee\nплата за доступ до додатку\nЗВІТНИЙ ПЕРІОД", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_24', headerName: "Activation\nfee (incl VAT)\nплата за активацію", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_25', headerName: "Paper / electronic version", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_26', headerName: "Agreement name", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_27', headerName: "Agreement/additional agreement date", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_28', headerName: "Type", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_29', headerName: "Payment type", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_30', headerName: "Повна/скорочена/ marketplace/інформаційні", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_31', headerName: "Інший пункт про проведення промо-акцій", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_32', headerName: "ДУ про PROMO - пункти що взагалі допускають проведення промо-акції", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_33', headerName: "ДУ про зниж на дост - пункти, що стосуються конкретно знижки на доставку", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_34', headerName: "Дата ДУ на всі ПРОМО\nself promo\\ 1+1, DF\nССП-1", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_35', headerName: "Статус \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_36', headerName: "Коментар \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_37', headerName: "Промо без Додатку ДАТА", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_38', headerName: "Промо без Додатку ЛІНК", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_39', headerName: "Промо без Додатку СТАТУС", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_40', headerName: "count", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_41', headerName: "Lost agreements request", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_42', headerName: "Invoicing", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_43', headerName: "AA on weekly invoicing link", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_44', headerName: "AA on weekly invoicing status", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_45', headerName: "Payment terms", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
-  { field: 'field_46', headerName: "Дата останнього гарантійного листа", headerClassName: 'table_row_header', cellClassName: (params) => 'table_cell', editable: true, },
+  { field: 'field_2', headerName: "", },
+  { field: 'field_3', headerName: "Internal sub#", type: 'date', width: 130, },
+  { field: 'field_4', headerName: "Status", },
+  { field: 'field_5', headerName: 'Finance status for paying bulk', renderEditCell: SelectEditInputCell, width: 180, },
+  { field: 'field_6', headerName: "NAME", },
+  { field: 'field_7', headerName: "ALL NAMEs", },
+  { field: 'field_8', headerName: "Comment", },
+  { field: 'field_9', headerName: "Лінк на Екземпляр Глово/\nстатус", },
+  { field: 'field_10', headerName: "Екземпляр Партнера\nстатус", },
+  { field: 'field_11', headerName: "Літера в архіві", },
+  { field: 'field_12', headerName: "Номер в архіві", },
+  { field: 'field_13', headerName: "City", },
+  { field: 'field_14', headerName: "Найменування", },
+  { field: 'field_15', headerName: "TAX ID", },
+  { field: 'field_16', headerName: "Active as of 15.01.2023", },
+  { field: 'field_17', headerName: "IBAN/ Bank account", },
+  { field: 'field_18', headerName: "IBAN check", },
+  { field: 'field_19', headerName: "Yes Updated", },
+  { field: 'field_20', headerName: "Comment on commission", },
+  { field: 'field_21', headerName: "trial", },
+  { field: 'field_22', headerName: "Platform\nfee\nплата за доступ до додатку\nСУМА", },
+  { field: 'field_23', headerName: "Platform\nfee\nплата за доступ до додатку\nЗВІТНИЙ ПЕРІОД", },
+  { field: 'field_24', headerName: "Activation\nfee (incl VAT)\nплата за активацію", },
+  { field: 'field_25', headerName: "Paper / electronic version", },
+  { field: 'field_26', headerName: "Agreement name", },
+  { field: 'field_27', headerName: "Agreement/additional agreement date", },
+  { field: 'field_28', headerName: "Type", },
+  { field: 'field_29', headerName: "Payment type", },
+  { field: 'field_30', headerName: "Повна/скорочена/ marketplace/інформаційні", },
+  { field: 'field_31', headerName: "Інший пункт про проведення промо-акцій", },
+  { field: 'field_32', headerName: "ДУ про PROMO - пункти що взагалі допускають проведення промо-акції", },
+  { field: 'field_33', headerName: "ДУ про зниж на дост - пункти, що стосуються конкретно знижки на доставку", },
+  { field: 'field_34', headerName: "Дата ДУ на всі ПРОМО\nself promo\\ 1+1, DF\nССП-1", },
+  { field: 'field_35', headerName: "Статус \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", },
+  { field: 'field_36', headerName: "Коментар \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", },
+  { field: 'field_37', headerName: "Промо без Додатку ДАТА", },
+  { field: 'field_38', headerName: "Промо без Додатку ЛІНК", },
+  { field: 'field_39', headerName: "Промо без Додатку СТАТУС", },
+  { field: 'field_40', headerName: "count", },
+  { field: 'field_41', headerName: "Lost agreements request", },
+  { field: 'field_42', headerName: "Invoicing", },
+  { field: 'field_43', headerName: "AA on weekly invoicing link", },
+  { field: 'field_44', headerName: "AA on weekly invoicing status", },
+  { field: 'field_45', headerName: "Payment terms", },
+  { field: 'field_46', headerName: "Дата останнього гарантійного листа", },
 ]
 
 export const rowData: GridRowsProp = [
@@ -160,7 +164,7 @@ export const rowData: GridRowsProp = [
   },
   {
       id: 2,
-      field_1: 3482908834,
+      field_1: {value: 3482908834, href: '#testLink1'},
       field_2: 10589,
       field_3: new Date(),
       field_4: "not signed",
