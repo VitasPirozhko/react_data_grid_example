@@ -1,0 +1,19 @@
+.table_row_header {
+    font-size: 12px;
+    color: #493f58;
+}
+
+.table_cell {
+    font-size: 14px;
+}
+
+.table_cell a {
+    color: #00a082;
+    text-decoration: none;
+}
+
+.css-oniiwq-MuiDataGrid-root .MuiDataGrid-row.Mui-selected,
+.css-oniiwq-MuiDataGrid-root .MuiDataGrid-row:hover, .css-oniiwq-MuiDataGrid-root .MuiDataGrid-row.Mui-hovered {
+    background: #fff9ed!important;
+}
+
