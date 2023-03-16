@@ -1,3 +1,5 @@
+import React from "react";
+
 const ColourCellRenderer = (props) => (
     <span
       style={{
