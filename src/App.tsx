@@ -1,41 +1,9 @@
-import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid';
-import React from 'react';
+import { Select, SelectChangeEvent } from '@mui/material';
+import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, useGridApiContext } from '@mui/x-data-grid';
 
-const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name'},
-  { field: 'age', headerName: 'Age', type: 'number', editable: true },
-  {
-    field: 'dateCreated',
-    headerName: 'Date Created',
-    type: 'date',
-    width: 180,
-    editable: true,
-  },
-];
-
-const rows: GridRowsProp = [
-  {
-    id: 1,
-    name: 'test1',
-    age: 25,
-    dateCreated: new Date(),
-  },
-  {
-    id: 2,
-    name: 'test2',
-    age: 36,
-    dateCreated: new Date(),
-  },
-  {
-    id: 3,
-    name: 'test3',
-    age: 19,
-    dateCreated: new Date(),
-  },
-];
 
 function App() {
-
+  
   return (
     <div style={{ height: 300, width: '100%' }}>
       <DataGrid rows={rowData} columns={columnDefs} />
@@ -45,12 +13,36 @@ function App() {
 
 export default App;
 
+const SelectEditInputCell = (props: GridRenderCellParams) => {
+  const { id, value, field } = props;
+  const apiRef = useGridApiContext();
+
+  const handleChange = async (event: SelectChangeEvent) => {
+    await apiRef.current.setEditCellValue({ id, field, value: event.target.value });
+    apiRef.current.stopCellEditMode({ id, field });
+  };
+
+  return (
+    <Select
+      value={value}
+      onChange={handleChange}
+      size="small"
+      sx={{ height: 1 }}
+      native
+      autoFocus
+    >
+      <option>To pay</option>
+      <option>DO NOT PAY</option>
+    </Select>
+  );
+}
+
 const columnDefs: GridColDef[] = [
   { field: 'field_1', headerName: 'TAX ID'},
   { field: 'field_2', headerName: "" },
   { field: 'field_3', headerName: "Internal sub#", type: 'date', editable: true, width: 130},
   { field: 'field_4', headerName: "Status" },
-  { field: 'field_5', headerName: 'Finance status for paying bulk'},
+  { field: 'field_5', headerName: 'Finance status for paying bulk', renderEditCell: SelectEditInputCell, editable: true, width: 180},
   { field: 'field_6', headerName: "NAME" },
   { field: 'field_7', headerName: "ALL NAMEs" },
   { field: 'field_8', headerName: "Comment" },
