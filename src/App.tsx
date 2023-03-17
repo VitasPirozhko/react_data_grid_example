@@ -7,7 +7,7 @@ function App() {
   return (
     <div style={{ height: 500, width: '100%' }} className="data_grid_wrap">
       <DataGrid
-        rows={rowData}
+        rows={addRows()}
         columns={addGeneralProperties(columnDefs)}
         sx={{
           boxShadow: '-2px 2px 8px rgba(78,69,92,.08)',
@@ -125,8 +125,7 @@ const columnDefs: GridColDef[] = [
   { field: 'field_46', headerName: "Дата останнього гарантійного листа", },
 ]
 
-export const rowData: GridRowsProp = [
-  {
+export const rowData = {
       id: 1,
       field_1: 3319819095,
       field_2: 10364,
@@ -177,109 +176,15 @@ export const rowData: GridRowsProp = [
       field_44: null,
       field_45: "Bi-weekly",
       field_46: null
-  },
-  {
-      id: 2,
-      field_1: 3482908834,
-      field_2: 10589,
-      field_3: new Date(),
-      field_4: "not signed",
-      field_5: "DO NOT PAY",
-      field_6: " Pub_belfast2.0",
-      field_7: " Pub_belfast2.0",
-      field_8: null,
-      field_9: {
-        value: 'https://vchasno.ua/app/documents/1830bd23-5813-4386-98d5-486a2c0a6528?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221',
-        href: 'https://vchasno.ua/app/documents/1830bd23-5813-4386-98d5-486a2c0a6528?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221'
-      },
-      field_10: null,
-      field_11: null,
-      field_12: null,
-      field_13: "м. Ужгород",
-      field_14: "ФОП ЧЕРЕВКО СТАНІСЛАВ ВАДИМОВИЧ",
-      field_15: 3482908834,
-      field_16: "Not active",
-      field_17: "UA703123560000026004506475113",
-      field_18: "ok",
-      field_19: null,
-      field_20: "30%+VAT ",
-      field_21: null,
-      field_22: null,
-      field_23: null,
-      field_24: "99+VAT",
-      field_25: "electronic",
-      field_26: "Договір про надання послуг",
-      field_27: "12.04.2022",
-      field_28: "agency",
-      field_29: "Total orders",
-      field_30: "Cкорочена",
-      field_31: null,
-      field_32: null,
-      field_33: null,
-      field_34: null,
-      field_35: null,
-      field_36: null,
-      field_37: null,
-      field_38: null,
-      field_39: null,
-      field_40: 1,
-      field_41: null,
-      field_42: "Bi-weekly",
-      field_43: null,
-      field_44: null,
-      field_45: "Bi-weekly",
-      field_46: null
-  },
-  {
-      id: 3,
-      field_1: 2987809576,
-      field_2: 2165,
-      field_3: new Date(),
-      field_4: "ok",
-      field_5: "To pay",
-      field_6: "_Sma4na_Shaurma_",
-      field_7: "_Sma4na_Shaurma_",
-      field_8: null,
-      field_9: {
-        value: 'https://vchasno.ua/app/documents/92cb8fa0-4697-4613-a02f-d77ed3d748ab?folder_id=6008&q_search=2987809576&page=3',
-        href: 'https://vchasno.ua/app/documents/92cb8fa0-4697-4613-a02f-d77ed3d748ab?folder_id=6008&q_search=2987809576&page=3'
-      },
-      field_10: null,
-      field_11: null,
-      field_12: null,
-      field_13: "Київ (правий берег)",
-      field_14: "ФОП БЄЛУГІН ІВАН ОЛЕКСІЙОВИЧ",
-      field_15: 2987809576,
-      field_16: "Not active",
-      field_17: "UA163003460000026008093470401",
-      field_18: "ok",
-      field_19: null,
-      field_20: "35%+VAT",
-      field_21: null,
-      field_22: null,
-      field_23: null,
-      field_24: 1000,
-      field_25: "electronic",
-      field_26: "Договір про надання послуг",
-      field_27: "26.06.2020",
-      field_28: "agency",
-      field_29: "Total orders",
-      field_30: "Cкорочена",
-      field_31: null,
-      field_32: "пункти в самому Договорі",
-      field_33: null,
-      field_34: "30.06.2021",
-      field_35: null,
-      field_36: null,
-      field_37: null,
-      field_38: null,
-      field_39: null,
-      field_40: 1,
-      field_41: null,
-      field_42: "Bi-weekly",
-      field_43: null,
-      field_44: null,
-      field_45: "Bi-weekly",
-      field_46: null
   }
-]
+
+const addRows = (): GridRowsProp => {
+  let multiRow: any = [];
+  for (let i = 0; i < 10000; ++i) {
+    multiRow.push({
+      ...rowData,
+      id: i
+    })
+  }
+  return multiRow;
+}
