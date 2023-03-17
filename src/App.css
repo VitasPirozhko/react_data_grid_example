@@ -12,8 +12,16 @@
     text-decoration: none;
 }
 
-.css-oniiwq-MuiDataGrid-root .MuiDataGrid-row.Mui-selected,
-.css-oniiwq-MuiDataGrid-root .MuiDataGrid-row:hover, .css-oniiwq-MuiDataGrid-root .MuiDataGrid-row.Mui-hovered {
+.data_grid_wrap .MuiDataGrid-row.Mui-selected,
+.data_grid_wrap .MuiDataGrid-row:hover, .data_grid_wrap .MuiDataGrid-row.Mui-hovered {
     background: #fff9ed!important;
 }
 
+.data_grid_wrap .MuiDataGrid-cell:focus {
+    outline: solid #00a082 1px!important;
+}
+
+.selectWrap fieldset {
+    border: none;
+    outline: none;
+}

@@ -5,7 +5,7 @@ import 'App.css'
 function App() {
   
   return (
-    <div style={{ height: 500, width: '100%' }}>
+    <div style={{ height: 500, width: '100%' }} className="data_grid_wrap">
       <DataGrid
         rows={rowData}
         columns={addGeneralProperties(columnDefs)}
@@ -31,10 +31,16 @@ const SelectEditInputCell = (props: GridRenderCellParams) => {
 
   return (
     <Select
+      className='selectWrap'
       value={value}
       onChange={handleChange}
       size="small"
-      sx={{ height: 1 }}
+      sx={{ 
+        height: 1,
+        width: '100%',
+        border: 'none',
+        borderRadius: 0
+      }}
       native
       autoFocus
     >
@@ -51,7 +57,6 @@ const addGeneralProperties = (collumns: GridColDef[]) => collumns.map((coll) => 
     cellClassName: () => 'table_cell',
     renderCell: (params: GridRenderCellParams) => {
       const { value } = params;
-      console.log(value);
       
       if (!value) return value;
       if (!value.href) return value.value;
@@ -77,14 +82,10 @@ const columnDefs: GridColDef[] = [
     renderEditCell: SelectEditInputCell,
     width: 180,
   },
-  { field: 'field_6', headerName: "NAME", },
-  { field: 'field_7', headerName: "ALL NAMEs", },
+  { field: 'field_6', headerName: "NAME", width: 160 },
+  { field: 'field_7', headerName: "ALL NAMEs", width: 160 },
   { field: 'field_8', headerName: "Comment", },
-  {
-    field: 'field_9',
-    headerName: "Лінк на Екземпляр Глово/статус",
-    width: 300
-  },
+  { field: 'field_9', headerName: "Лінк на Екземпляр Глово/статус", width: 300 },
   { field: 'field_10', headerName: "Екземпляр Партнерастатус", },
   { field: 'field_11', headerName: "Літера в архіві", },
   { field: 'field_12', headerName: "Номер в архіві", },
