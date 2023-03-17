@@ -1,24 +1,47 @@
 import { Select, SelectChangeEvent } from '@mui/material';
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowsProp, useGridApiContext } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams, useGridApiContext } from '@mui/x-data-grid';
 import 'App.css'
+import { useState } from 'react';
 
 function App() {
-  
+  const [files, setFiles] = useState([]);
   return (
-    <div style={{ height: '98vh', width: '100%' }} className="data_grid_wrap">
-      <DataGrid
-        rows={addRows()}
-        columns={addGeneralProperties(columnDefs)}
-        sx={{
-          boxShadow: '-2px 2px 8px rgba(78,69,92,.08)',
-          borderRadius: '20px',
-        }}
-      />
-  </div>
+    <>
+      <Upload setFiles={setFiles} />
+      <div style={{ height: '83vh', width: '100%' }} className="data_grid_wrap">
+        <DataGrid
+          rows={files}
+          columns={addGeneralProperties(columnDefs)}
+          sx={{
+            boxShadow: '-2px 2px 8px rgba(78,69,92,.08)',
+            borderRadius: '20px',
+          }}
+        />
+    </div>
+    </>
   );
 }
 
 export default App;
+
+const Upload: React.FC<{setFiles: any}> = ({ setFiles }) => {
+
+  const handleChange = (e: any) => {
+      const fileReader = new FileReader();
+      fileReader.readAsText(e.target.files[0], "UTF-8");
+      fileReader.onload = e => {
+        if (e.target !== null) {
+          setFiles(addID(JSON.parse((e.target as any).result)));
+        }
+      };
+  };
+  return (
+    <>
+      <h1>Upload Json file</h1>
+      <input type="file" onChange={handleChange} />
+    </>
+  );
+}
 
 const SelectEditInputCell = (props: GridRenderCellParams) => {
   const { id, value, field } = props;
@@ -68,124 +91,132 @@ const addGeneralProperties = (collumns: GridColDef[]) => collumns.map((coll) => 
 
 const columnDefs: GridColDef[] = [
   {
-    field: 'field_1',
+    field: '1',
     headerName: 'TAX ID',
     headerAlign: 'center',
     editable: false,
   },
-  { field: 'field_2', headerName: "", },
-  { field: 'field_3', headerName: "Internal sub#", type: 'date', width: 130, },
-  { field: 'field_4', headerName: "Status", },
+  { field: '2', headerName: "", },
+  { field: '3', headerName: "Internal sub#", type: 'date', width: 130, },
+  { field: '4', headerName: "Status", },
   {
-    field: 'field_5',
+    field: '5',
     headerName: 'Finance status for paying bulk',
     renderEditCell: SelectEditInputCell,
     width: 180,
   },
-  { field: 'field_6', headerName: "NAME", width: 160 },
-  { field: 'field_7', headerName: "ALL NAMEs", width: 160 },
-  { field: 'field_8', headerName: "Comment", },
-  { field: 'field_9', headerName: "Лінк на Екземпляр Глово/статус", width: 300 },
-  { field: 'field_10', headerName: "Екземпляр Партнерастатус", },
-  { field: 'field_11', headerName: "Літера в архіві", },
-  { field: 'field_12', headerName: "Номер в архіві", },
-  { field: 'field_13', headerName: "City", },
-  { field: 'field_14', headerName: "Найменування", },
-  { field: 'field_15', headerName: "TAX ID", },
-  { field: 'field_16', headerName: "Active as of 15.01.2023", },
-  { field: 'field_17', headerName: "IBAN/ Bank account", },
-  { field: 'field_18', headerName: "IBAN check", },
-  { field: 'field_19', headerName: "Yes Updated", },
-  { field: 'field_20', headerName: "Comment on commission", },
-  { field: 'field_21', headerName: "trial", },
-  { field: 'field_22', headerName: "Platform\nfee\nплата за доступ до додатку\nСУМА", },
-  { field: 'field_23', headerName: "Platform\nfee\nплата за доступ до додатку\nЗВІТНИЙ ПЕРІОД", },
-  { field: 'field_24', headerName: "Activation\nfee (incl VAT)\nплата за активацію", },
-  { field: 'field_25', headerName: "Paper / electronic version", },
-  { field: 'field_26', headerName: "Agreement name", },
-  { field: 'field_27', headerName: "Agreement/additional agreement date", },
-  { field: 'field_28', headerName: "Type", },
-  { field: 'field_29', headerName: "Payment type", },
-  { field: 'field_30', headerName: "Повна/скорочена/ marketplace/інформаційні", },
-  { field: 'field_31', headerName: "Інший пункт про проведення промо-акцій", },
-  { field: 'field_32', headerName: "ДУ про PROMO - пункти що взагалі допускають проведення промо-акції", },
-  { field: 'field_33', headerName: "ДУ про зниж на дост - пункти, що стосуються конкретно знижки на доставку", },
-  { field: 'field_34', headerName: "Дата ДУ на всі ПРОМО\nself promo\\ 1+1, DF\nССП-1", },
-  { field: 'field_35', headerName: "Статус \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", },
-  { field: 'field_36', headerName: "Коментар \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", },
-  { field: 'field_37', headerName: "Промо без Додатку ДАТА", },
-  { field: 'field_38', headerName: "Промо без Додатку ЛІНК", },
-  { field: 'field_39', headerName: "Промо без Додатку СТАТУС", },
-  { field: 'field_40', headerName: "count", },
-  { field: 'field_41', headerName: "Lost agreements request", },
-  { field: 'field_42', headerName: "Invoicing", },
-  { field: 'field_43', headerName: "AA on weekly invoicing link", },
-  { field: 'field_44', headerName: "AA on weekly invoicing status", },
-  { field: 'field_45', headerName: "Payment terms", },
-  { field: 'field_46', headerName: "Дата останнього гарантійного листа", },
+  { field: '6', headerName: "NAME", width: 160 },
+  { field: '7', headerName: "ALL NAMEs", width: 160 },
+  { field: '8', headerName: "Comment", },
+  { field: '9', headerName: "Лінк на Екземпляр Глово/статус", width: 300 },
+  { field: '10', headerName: "Екземпляр Партнерастатус", },
+  { field: '11', headerName: "Літера в архіві", },
+  { field: '12', headerName: "Номер в архіві", },
+  { field: '13', headerName: "City", },
+  { field: '14', headerName: "Найменування", },
+  { field: '15', headerName: "TAX ID", },
+  { field: '16', headerName: "Active as of 15.01.2023", },
+  { field: '17', headerName: "IBAN/ Bank account", },
+  { field: '18', headerName: "IBAN check", },
+  { field: '19', headerName: "Yes Updated", },
+  { field: '20', headerName: "Comment on commission", },
+  { field: '21', headerName: "trial", },
+  { field: '22', headerName: "Platform\nfee\nплата за доступ до додатку\nСУМА", },
+  { field: '23', headerName: "Platform\nfee\nплата за доступ до додатку\nЗВІТНИЙ ПЕРІОД", },
+  { field: '24', headerName: "Activation\nfee (incl VAT)\nплата за активацію", },
+  { field: '25', headerName: "Paper / electronic version", },
+  { field: '26', headerName: "Agreement name", },
+  { field: '27', headerName: "Agreement/additional agreement date", },
+  { field: '28', headerName: "Type", },
+  { field: '29', headerName: "Payment type", },
+  { field: '30', headerName: "Повна/скорочена/ marketplace/інформаційні", },
+  { field: '31', headerName: "Інший пункт про проведення промо-акцій", },
+  { field: '32', headerName: "ДУ про PROMO - пункти що взагалі допускають проведення промо-акції", },
+  { field: '33', headerName: "ДУ про зниж на дост - пункти, що стосуються конкретно знижки на доставку", },
+  { field: '34', headerName: "Дата ДУ на всі ПРОМО\nself promo\\ 1+1, DF\nССП-1", },
+  { field: '35', headerName: "Статус \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", },
+  { field: '36', headerName: "Коментар \n\"ДУ на всі ПРОМО\nself promo\\ 1+1\"", },
+  { field: '37', headerName: "Промо без Додатку ДАТА", },
+  { field: '38', headerName: "Промо без Додатку ЛІНК", },
+  { field: '39', headerName: "Промо без Додатку СТАТУС", },
+  { field: '40', headerName: "count", },
+  { field: '41', headerName: "Lost agreements request", },
+  { field: '42', headerName: "Invoicing", },
+  { field: '43', headerName: "AA on weekly invoicing link", },
+  { field: '44', headerName: "AA on weekly invoicing status", },
+  { field: '45', headerName: "Payment terms", },
+  { field: '46', headerName: "Дата останнього гарантійного листа", },
 ]
 
-export const rowData = {
-      id: 1,
-      field_1: 3319819095,
-      field_2: 10364,
-      field_3: new Date(),
-      field_4: "ok",
-      field_5: "To pay",
-      field_6: " Lavash-Shashlik",
-      field_7: " Lavash-Shashlik",
-      field_8: null,
-      field_9: {
-        value: 'https://vchasno.ua/app/documents/83441e0f-32b0-4da9-bd26-8f39c79ed724?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221',
-        href: 'https://vchasno.ua/app/documents/83441e0f-32b0-4da9-bd26-8f39c79ed724?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221'
-      },
-      field_10: null,
-      field_11: null,
-      field_12: null,
-      field_13: "м. Дніпро",
-      field_14: "ФОП ІМЕРЛІШВІЛІ ГІОРГІ",
-      field_15: 3319819095,
-      field_16: "10364-01",
-      field_17: "UA413052990000026005050346079",
-      field_18: "ok",
-      field_19: null,
-      field_20: "31%+VAT",
-      field_21: null,
-      field_22: null,
-      field_23: null,
-      field_24: "99+VAT",
-      field_25: "electronic",
-      field_26: "Договір про надання послуг",
-      field_27: "15.02.2022",
-      field_28: "agency",
-      field_29: "Total orders",
-      field_30: "Cкорочена",
-      field_31: null,
-      field_32: null,
-      field_33: null,
-      field_34: null,
-      field_35: null,
-      field_36: null,
-      field_37: null,
-      field_38: null,
-      field_39: null,
-      field_40: 3,
-      field_41: null,
-      field_42: "Bi-weekly",
-      field_43: null,
-      field_44: null,
-      field_45: "Bi-weekly",
-      field_46: null
-  }
+// export const rowData = {
+//       id: 1,
+//       field_1: 3319819095,
+//       field_2: 10364,
+//       field_3: new Date(),
+//       field_4: "ok",
+//       field_5: "To pay",
+//       field_6: " Lavash-Shashlik",
+//       field_7: " Lavash-Shashlik",
+//       field_8: null,
+//       field_9: {
+//         value: 'https://vchasno.ua/app/documents/83441e0f-32b0-4da9-bd26-8f39c79ed724?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221',
+//         href: 'https://vchasno.ua/app/documents/83441e0f-32b0-4da9-bd26-8f39c79ed724?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221'
+//       },
+//       field_10: null,
+//       field_11: null,
+//       field_12: null,
+//       field_13: "м. Дніпро",
+//       field_14: "ФОП ІМЕРЛІШВІЛІ ГІОРГІ",
+//       field_15: 3319819095,
+//       field_16: "10364-01",
+//       field_17: "UA413052990000026005050346079",
+//       field_18: "ok",
+//       field_19: null,
+//       field_20: "31%+VAT",
+//       field_21: null,
+//       field_22: null,
+//       field_23: null,
+//       field_24: "99+VAT",
+//       field_25: "electronic",
+//       field_26: "Договір про надання послуг",
+//       field_27: "15.02.2022",
+//       field_28: "agency",
+//       field_29: "Total orders",
+//       field_30: "Cкорочена",
+//       field_31: null,
+//       field_32: null,
+//       field_33: null,
+//       field_34: null,
+//       field_35: null,
+//       field_36: null,
+//       field_37: null,
+//       field_38: null,
+//       field_39: null,
+//       field_40: 3,
+//       field_41: null,
+//       field_42: "Bi-weekly",
+//       field_43: null,
+//       field_44: null,
+//       field_45: "Bi-weekly",
+//       field_46: null
+// }
 
-const addRows = (): GridRowsProp => {
-  let multiRow: any = [];
-  for (let i = 0; i < 10000; ++i) {
-    multiRow.push({
-      ...rowData,
-      id: i,
-      ...(i === 502 && {field_1: 11111111})
-    })
+// const addRows = (): GridRowsProp => {
+//   let multiRow: any = [];
+//   for (let i = 0; i < 10000; ++i) {
+//     multiRow.push({
+//       ...rowData,
+//       id: i,
+//       ...(i === 502 && {field_1: 11111111})
+//     })
+//   }
+//   return multiRow;
+// }
+
+const addID = (rows: []) => rows.map((row: {}, index) => {
+  return {
+    ...row,
+    id: index,
+    3: new Date(),
   }
-  return multiRow;
-}
+})
