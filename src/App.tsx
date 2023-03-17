@@ -49,6 +49,14 @@ const addGeneralProperties = (collumns: GridColDef[]) => collumns.map((coll) => 
     editable: true,
     headerClassName: 'table_row_header',
     cellClassName: () => 'table_cell',
+    renderCell: (params: GridRenderCellParams) => {
+      const { value } = params;
+      console.log(value);
+      
+      if (!value) return value;
+      if (!value.href) return value.value;
+      return <a href={value.href} target="_blank" rel="noreferrer" >{value.value}</a>
+    },
     ...coll,
   }
 });
@@ -59,21 +67,25 @@ const columnDefs: GridColDef[] = [
     headerName: 'TAX ID',
     headerAlign: 'center',
     editable: false,
-    renderCell: (params) => {
-      const { value } = params;
-      if (!value.href) return value;
-      return <a href={value.href} target="_blank" rel="noreferrer" >{value.value}</a>
-    },
   },
   { field: 'field_2', headerName: "", },
   { field: 'field_3', headerName: "Internal sub#", type: 'date', width: 130, },
   { field: 'field_4', headerName: "Status", },
-  { field: 'field_5', headerName: 'Finance status for paying bulk', renderEditCell: SelectEditInputCell, width: 180, },
+  {
+    field: 'field_5',
+    headerName: 'Finance status for paying bulk',
+    renderEditCell: SelectEditInputCell,
+    width: 180,
+  },
   { field: 'field_6', headerName: "NAME", },
   { field: 'field_7', headerName: "ALL NAMEs", },
   { field: 'field_8', headerName: "Comment", },
-  { field: 'field_9', headerName: "Лінк на Екземпляр Глово/\nстатус", },
-  { field: 'field_10', headerName: "Екземпляр Партнера\nстатус", },
+  {
+    field: 'field_9',
+    headerName: "Лінк на Екземпляр Глово/статус",
+    width: 300
+  },
+  { field: 'field_10', headerName: "Екземпляр Партнерастатус", },
   { field: 'field_11', headerName: "Літера в архіві", },
   { field: 'field_12', headerName: "Номер в архіві", },
   { field: 'field_13', headerName: "City", },
@@ -115,7 +127,7 @@ const columnDefs: GridColDef[] = [
 export const rowData: GridRowsProp = [
   {
       id: 1,
-      field_1: {value: 3319819095, href: '#testLink'},
+      field_1: 3319819095,
       field_2: 10364,
       field_3: new Date(),
       field_4: "ok",
@@ -123,7 +135,10 @@ export const rowData: GridRowsProp = [
       field_6: " Lavash-Shashlik",
       field_7: " Lavash-Shashlik",
       field_8: null,
-      field_9: "https://vchasno.ua/app/documents/83441e0f-32b0-4da9-bd26-8f39c79ed724?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221",
+      field_9: {
+        value: 'https://vchasno.ua/app/documents/83441e0f-32b0-4da9-bd26-8f39c79ed724?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221',
+        href: 'https://vchasno.ua/app/documents/83441e0f-32b0-4da9-bd26-8f39c79ed724?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221'
+      },
       field_10: null,
       field_11: null,
       field_12: null,
@@ -164,7 +179,7 @@ export const rowData: GridRowsProp = [
   },
   {
       id: 2,
-      field_1: {value: 3482908834, href: '#testLink1'},
+      field_1: 3482908834,
       field_2: 10589,
       field_3: new Date(),
       field_4: "not signed",
@@ -172,7 +187,10 @@ export const rowData: GridRowsProp = [
       field_6: " Pub_belfast2.0",
       field_7: " Pub_belfast2.0",
       field_8: null,
-      field_9: "https://vchasno.ua/app/documents/1830bd23-5813-4386-98d5-486a2c0a6528?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221",
+      field_9: {
+        value: 'https://vchasno.ua/app/documents/1830bd23-5813-4386-98d5-486a2c0a6528?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221',
+        href: 'https://vchasno.ua/app/documents/1830bd23-5813-4386-98d5-486a2c0a6528?folder_id=6008&conditions2=60017002&conditions2=60017003120&conditions2=60017004&conditions2=60017007220&conditions2=600270010&conditions2=60027003020&conditions2=60027007120&conditions2=60027007010&conditions2=60077001&conditions2=60077003&conditions2=600070102221'
+      },
       field_10: null,
       field_11: null,
       field_12: null,
@@ -213,7 +231,7 @@ export const rowData: GridRowsProp = [
   },
   {
       id: 3,
-      field_1: {value: 2987809576, href: '#testLink2'},
+      field_1: 2987809576,
       field_2: 2165,
       field_3: new Date(),
       field_4: "ok",
@@ -221,7 +239,10 @@ export const rowData: GridRowsProp = [
       field_6: "_Sma4na_Shaurma_",
       field_7: "_Sma4na_Shaurma_",
       field_8: null,
-      field_9: "https://vchasno.ua/app/documents/92cb8fa0-4697-4613-a02f-d77ed3d748ab?folder_id=6008&q_search=2987809576&page=3",
+      field_9: {
+        value: 'https://vchasno.ua/app/documents/92cb8fa0-4697-4613-a02f-d77ed3d748ab?folder_id=6008&q_search=2987809576&page=3',
+        href: 'https://vchasno.ua/app/documents/92cb8fa0-4697-4613-a02f-d77ed3d748ab?folder_id=6008&q_search=2987809576&page=3'
+      },
       field_10: null,
       field_11: null,
       field_12: null,
