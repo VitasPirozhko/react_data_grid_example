@@ -5,7 +5,7 @@ import 'App.css'
 function App() {
   
   return (
-    <div style={{ height: 500, width: '100%' }} className="data_grid_wrap">
+    <div style={{ height: '98vh', width: '100%' }} className="data_grid_wrap">
       <DataGrid
         rows={addRows()}
         columns={addGeneralProperties(columnDefs)}
@@ -183,7 +183,8 @@ const addRows = (): GridRowsProp => {
   for (let i = 0; i < 10000; ++i) {
     multiRow.push({
       ...rowData,
-      id: i
+      id: i,
+      ...(i === 502 && {field_1: 11111111})
     })
   }
   return multiRow;
